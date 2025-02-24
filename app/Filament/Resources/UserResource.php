@@ -21,10 +21,7 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    public static function canViewAny(): bool
-    {
-        return Gate::allows('gestionar roles');
-    }
+
 
     public static function form(Form $form): Form
     {
@@ -44,10 +41,12 @@ class UserResource extends Resource
                     ->password()
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->required(fn (string $context): bool => $context === 'create'),
-                Forms\Components\Select::make('roles')
-                    ->multiple()
-                    ->relationship('roles', 'name')
-                    ->preload(),
+                Forms\Components\Select::make('role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'user' => 'User',
+                    ])
+                    ->required(),
                 Forms\Components\Toggle::make('is_active')
                     ->label('Estado')
                     ->onColor('success')
@@ -76,7 +75,7 @@ class UserResource extends Resource
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
-                Tables\Columns\TextColumn::make('roles.name')
+                Tables\Columns\TextColumn::make('role')
                     ->label('Rol')
                     ->badge()
                     ->color('primary')

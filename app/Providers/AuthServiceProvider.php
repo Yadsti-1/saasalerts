@@ -20,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('access-admin', function ($user) {
-            return $user->is_active && $user->is_admin;
+            return $user->is_active && $user->hasRole('admin');
         });
 
         Gate::define('edit-profile', function ($user) {
