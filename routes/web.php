@@ -15,11 +15,15 @@ Route::get('/', function () {
 // Aplicar middleware a las rutas de Filament
 Route::middleware(['auth', 'verified', \App\Http\Middleware\CheckFilamentUserStatus::class])->group(function () {
     Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/admin-dashboard', function () {
         if (Gate::allows('access-admin', Auth::user())) {
             return redirect()->route('filament.admin.pages.dashboard');
         }
-        return view('dashboard');
-    })->name('dashboard');
+        return redirect()->route('dashboard')->with('error', 'No tienes permisos suficientes para acceder al panel administrativo.');
+    })->name('admin-dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
