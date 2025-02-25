@@ -116,6 +116,10 @@ class UserResource extends Resource
                             throw new ValidationException('Contraseña incorrecta.');
                         }
                     })
+                    ->action(function (User $record) {
+                        $record->update(['is_active' => false]);
+                        $record->delete();
+                    })
                     ->successNotificationTitle('Usuario eliminado correctamente'),
             ])
             ->bulkActions([
