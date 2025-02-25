@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('calendars.index')" :active="request()->routeIs('calendars.index')">
+                        {{ __('Calendario Tributario') }}
+                    </x-nav-link>
                     @can('access-admin')
                         <x-nav-link :href="route('filament.admin.pages.dashboard')" :active="request()->routeIs('filament.admin.pages.dashboard')">
                             {{ __('Panel Administrativo') }}
@@ -75,11 +78,13 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-
+            <x-responsive-nav-link :href="route('calendars.index')" :active="request()->routeIs('calendars.index')">
+                {{ __('Calendario Tributario') }}
+            </x-responsive-nav-link>
             @can('access-admin')    
-                <x-nav-link :href="route('filament.admin.pages.dashboard')" :active="request()->routeIs('filament.admin.pages.dashboard')">
+                <x-responsive-nav-link :href="route('filament.admin.pages.dashboard')" :active="request()->routeIs('filament.admin.pages.dashboard')">
                             {{ __('Panel Administrativo') }}
-                </x-nav-link>
+                </x-responsive-nav-link>
             @endcan
         </div>
 

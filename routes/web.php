@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\CalendarController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -24,7 +25,7 @@ Route::middleware(['auth', 'verified', \App\Http\Middleware\CheckFilamentUserSta
         }
         return redirect()->route('dashboard')->with('error', 'No tienes permisos suficientes para acceder al panel administrativo.');
     })->name('admin-dashboard');
-
+    Route::get('/calendars', [CalendarController::class, 'index'])->middleware('auth')->name('calendars.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
