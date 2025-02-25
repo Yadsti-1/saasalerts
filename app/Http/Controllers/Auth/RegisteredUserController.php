@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'phone' => $request->phone,
         ]);
 
-        $user->assignRole('user');
+        $user->hasRole('user');
 
         event(new Registered($user));
 
